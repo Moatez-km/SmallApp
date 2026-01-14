@@ -35,6 +35,13 @@ def get_users():
 def create_user(user:UserBase):
     global next_id
 
+    for u in users:
+        if u["email"] == user.email:
+            raise HTTPException(
+                status_code=400,
+                detail="Email already exists"
+            )
+        
     new_user={
         "id": next_id,
         "name":user.name,
