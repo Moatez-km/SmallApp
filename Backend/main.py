@@ -44,3 +44,13 @@ def create_user(user:UserBase):
     next_id +=1
 
     return new_user
+
+@app.put("/users/{user_id}",response_model=User)
+def update_user(user_id:int ,user:UserBase):
+    for u in users :
+        if u["id"]==user_id:
+            u["name"]=user.name
+            u["email"]=user.email
+            return u
+    raise HTTPException(status_code=404,detail="User not found")    
+
