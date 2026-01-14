@@ -30,3 +30,17 @@ def root():
 def get_users():
     return users
 
+
+@app.post("/users",response_model=User)
+def create_user(user:UserBase):
+    global next_id
+
+    new_user={
+        "id": next_id,
+        "name":user.name,
+        "email":user.email
+    }
+    users.append(new_user)
+    next_id +=1
+
+    return new_user
